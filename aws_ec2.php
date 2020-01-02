@@ -5,6 +5,7 @@ $CFG = require_once __DIR__ . "/../common/include/incConfig.php";
 
 
 require_once $CFG["CFG_LIBS_PATH_AWS"];
+require_once __DIR__ . "/../common/include/incUtil.php";
 
 alog("Start script.");
 //echo "<br>CFG_LIBS_PATH_AWS : " . $CFG["CFG_LIBS_PATH_AWS"];
@@ -35,7 +36,7 @@ $ec2Client = new Aws\Ec2\Ec2Client([
 ]);
 
 
-echo "<br>" . 111;
+//echo "<br>" . 111;
 
 try {
         
@@ -47,19 +48,28 @@ try {
 
     $tarr = $result->toArray();
 
-    echo "<br><br><pre>" . json_encode($tarr,JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) ."</pre>";
+    //echo var_dump($tarr);
+
+    //echo "<br><br><pre>" . json_encode($tarr,JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) ."</pre>";
     
-    echo "<br><br>현재상태 : " . $tarr["StoppingInstances"]["CurrentState"]["Code"];
+    alog("현재상태 : " . $tarr["StoppingInstances"][0]["CurrentState"]["Name"]);
+    //echo "<br><br>현재상태 : " . $tarr["StoppingInstances"][0]["CurrentState"]["Name"];
 
-    echo "<br><br>이전상태 : " . $tarr["StoppingInstances"]["PreviousState"]["Code"];
+    alog("이전상태 : " . $tarr["StoppingInstances"][0]["PreviousState"]["Name"]);
+    //echo "<br><br>이전상태 : " . $tarr["StoppingInstances"][0]["PreviousState"]["Name"];
 
-    echo "<br><br>처리결과 : " . $tarr["@metadata"]["statusCode"];
+    alog("처리결과 : " . $tarr["@metadata"]["statusCode"]);
+    //echo "<br><br>처리결과 : " . $tarr["@metadata"]["statusCode"];
     //echo "<br><br>" . $result->search(".Name");
 }catch (Ec2Exception $e) {
-    echo "<br>" . $e->getMessage() . "\n";
+    alog("Ec2Exception : " . $e->getMessage());
+    //echo "<br>" . $e->getMessage() . "\n";
 }catch (AwsException $e) {
-    echo "<br>" . $e->getMessage() . "\n";
+    alog("AwsException : " . $e->getMessage());
+    //echo "<br>" . $e->getMessage() . "\n";
 }
 
-echo "<br>" . 333;
+//echo "<br>" . 333;
+
+alog("End script.");
 ?>
