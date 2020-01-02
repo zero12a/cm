@@ -6,6 +6,7 @@ $CFG = require_once __DIR__ . "/../common/include/incConfig.php";
 
 require_once $CFG["CFG_LIBS_PATH_AWS"];
 
+alog("Start script.");
 //echo "<br>CFG_LIBS_PATH_AWS : " . $CFG["CFG_LIBS_PATH_AWS"];
 //echo "<br>CFG_AWS_AID : " . $CFG["CFG_AWS_AID"];
 //echo "<br>CFG_AWS_KEY : " . $CFG["CFG_AWS_KEY"];
